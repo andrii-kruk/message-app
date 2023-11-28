@@ -1,22 +1,24 @@
+import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import SharedLayout from 'components/SharedLayout/SharedLayout';
-import FirstPage from 'pages/FirstPage/FirstPage';
-import SecondPage from 'pages/SecondPage/SecondPage';
-import HalfPage from 'pages/HalfPage/HalfPage';
-import ErrorPage from 'pages/ErrorPage/ErrorPage';
 
-function App() {
+const MainPage = lazy(() => import('@pages/MainPage/MainPage.jsx'));
+const LoginPage = lazy(() => import('@pages/LoginPage/LoginPage.jsx'));
+const ProfilePage = lazy(() => import('@pages/ProfilePage/ProfilePage.jsx'));
+
+import { Layout, Loader } from './components/index.js';
+
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route path="/first" element={<FirstPage />} />
-        <Route path="/second" element={<SecondPage />}>
-          <Route path=":half" element={<HalfPage />} />
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
-
-        <Route path="*" element={<ErrorPage />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
-}
+};
+
 export default App;
