@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { Input } from "@components/index.js";
+import { Input, Button } from "@components/index.js";
 import { signIn } from "@redux/auth/authOperations.js";
 
 const LoginForm = () => {
@@ -43,10 +43,11 @@ const LoginForm = () => {
         onChange={(event) => setPassword(event.target.value)}
       />
 
-      <button type="submit">Sign in</button>
+      <Button type="submit" content="Sign in" variant="form-btn"/>
+
 
       <p>
-        You don't have an account?<Link to="register">Register now!</Link>
+        You don't have an account?<Link to="/register">Register now!</Link>
       </p>
     </form>
   );
